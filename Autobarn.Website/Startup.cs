@@ -29,17 +29,10 @@ namespace Autobarn.Website {
 			var db = new InMemoryCarDatabase("JsonData");
 			services.AddSingleton<ICarDatabase>(db);
 
-
-			#region GraphQL service registration
-
-			//services.AddSingleton<CarQuery>();
-			//services.AddSingleton<CarGraphType>();
 			services.AddSingleton<AutobarnSchema>();
-			services.AddGraphQL()
+			services.AddGraphQL(options => options.EnableMetrics = false)
 				.AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = true)
 				.AddSystemTextJson();
-
-			#endregion
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
