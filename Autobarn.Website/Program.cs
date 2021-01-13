@@ -1,9 +1,9 @@
-using System;
-using System.IO;
-using System.Net;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.IO;
+using System.Net;
 
 namespace Autobarn.Website {
 	public class Program {

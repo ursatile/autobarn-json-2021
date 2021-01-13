@@ -1,5 +1,6 @@
 ﻿using Autobarn.Data.Entities;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,12 +11,16 @@ namespace Autobarn.Data {
 		public IList<Car> Cars => cars;
 		public IList<Make> Makes => makes;
 		public IList<CarModel> Models => models;
+		public Car FindCar(string registration) =>
+			Cars.Single(c =>
+				String.Equals(c.Registration, registration, StringComparison.InvariantCultureIgnoreCase));
 
-		private readonly List<Make> makes = new List<Make>();
-		private readonly List<CarModel> models = new List<CarModel>();
-		private readonly List<Car> cars = new List<Car>();
+		private readonly List<Make> makes;
+		private readonly List<CarModel> models;
+		private readonly List<Car> cars;
 
 		public InMemoryCarDatabase(string dataFilePath) {
+			makes = new List<Make>();
 			foreach (var filePath in Directory.GetFiles(dataFilePath, "*.json")) {
 				var json = File.ReadAllText(filePath);
 				var make = JsonConvert.DeserializeObject<Make>(json);

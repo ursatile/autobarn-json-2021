@@ -1,7 +1,7 @@
 ﻿using Autobarn.Data;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace Autobarn.Website.Controllers {
 	public class CarsController : Controller {
