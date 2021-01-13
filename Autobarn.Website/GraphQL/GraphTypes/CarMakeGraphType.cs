@@ -6,8 +6,6 @@ namespace Autobarn.Website.GraphQL.GraphTypes {
 		public CarMakeGraphType() {
 			Name = "make";
 			Field(c => c.Name).Description("The name of the manufacturer, e.g. Tesla, Volkswagen, Ford");
-			
-
 		}
 	}
 }

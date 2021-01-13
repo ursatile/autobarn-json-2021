@@ -1,5 +1,4 @@
 ﻿using Autobarn.Data.Entities;
-using Autobarn.Website.GraphQL.Queries;
 using GraphQL.Types;
 
 namespace Autobarn.Website.GraphQL.GraphTypes {

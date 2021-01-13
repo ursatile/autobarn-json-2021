@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Autobarn.Data;
+﻿using Autobarn.Data;
 using Autobarn.Data.Entities;
 using Autobarn.Website.GraphQL.GraphTypes;
 using GraphQL;
 using GraphQL.Types;
-using Microsoft.AspNetCore.Razor.TagHelpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Autobarn.Website.GraphQL.Queries {
 	public class CarQuery : ObjectGraphType {
@@ -15,7 +13,7 @@ namespace Autobarn.Website.GraphQL.Queries {
 
 		public CarQuery(ICarDatabase db) {
 			this.db = db;
-			
+
 			Field<ListGraphType<CarGraphType>>("cars", "Query to retrieve all cars", resolve: GetAllCars);
 
 			Field<CarGraphType>("car", "Query to retrieve a specific car",

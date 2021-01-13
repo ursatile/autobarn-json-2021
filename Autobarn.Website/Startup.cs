@@ -1,13 +1,7 @@
 using Autobarn.Data;
-using Autobarn.Website.GraphQL;
-using Autobarn.Website.GraphQL.GraphTypes;
-using Autobarn.Website.GraphQL.Queries;
 using Autobarn.Website.GraphQL.Schemas;
 using GraphiQl;
-using GraphQL;
 using GraphQL.Server;
-using GraphQL.SystemTextJson;
-using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
