@@ -1,4 +1,5 @@
-﻿using Autobarn.Data.Entities;
+﻿using System;
+using Autobarn.Data.Entities;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
@@ -10,6 +11,9 @@ namespace Autobarn.Data {
 		public IList<Car> Cars => cars;
 		public IList<Make> Makes => makes;
 		public IList<CarModel> Models => models;
+		public Car FindCar(string registration) =>
+			Cars.Single(c =>
+				String.Equals(c.Registration, registration, StringComparison.InvariantCultureIgnoreCase));
 
 		private readonly List<Make> makes = new List<Make>();
 		private readonly List<CarModel> models = new List<CarModel>();

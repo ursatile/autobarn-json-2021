@@ -4,44 +4,46 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autobarn.Data;
 using Autobarn.Data.Entities;
+using Autobarn.Website.GraphQL.GraphTypes;
+using GraphQL;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Autobarn.Website.GraphQL.Queries {
 	public class CarQuery : ObjectGraphType {
+		private readonly ICarDatabase db;
+
 		public CarQuery(ICarDatabase db) {
-			Field<ListGraphType<CarGraphType>>("cars", "Query to retrieve all cars", resolve: context => db.Cars);
-		}
-	}
-
-	public sealed class CarMakeGraphType : ObjectGraphType<Make> {
-		public CarMakeGraphType() {
-			Name = "make";
-			Field(c => c.Name).Description("The name of the manufacturer, e.g. Tesla, Volkswagen, Ford");
+			this.db = db;
 			
+			Field<ListGraphType<CarGraphType>>("cars", "Query to retrieve all cars", resolve: GetAllCars);
 
-		}
-	}
-	public sealed class CarModelGraphType : ObjectGraphType<CarModel> {
-		public CarModelGraphType() {
-			Name = "model";
-			Field(m => m.Name, false).Description("The name of this model, e.g. Golf, Beetle, 5 Series, Model X");
-			Field(m => m.Make, false, typeof(CarMakeGraphType)).Description("The make of this model of car");
+			Field<CarGraphType>("car", "Query to retrieve a specific car",
+				new QueryArguments(MakeNonNullStringArgument("registration", "The registration (licence plate) of the car")),
+				resolve: GetCar);
 
+			Field<ListGraphType<CarGraphType>>("carsByColor", "Query to retrieve all cars matching the specified color",
+				new QueryArguments(MakeNonNullStringArgument("color", "The name of a color, eg 'blue', 'grey'")),
+				resolve: GetCarsByColor);
 		}
-	}
-	public sealed class CarGraphType : ObjectGraphType<Car> {
-		public CarGraphType() {
-			Name = "car";
-			Field(c => c.CarModel, nullable: false, type: typeof(CarModelGraphType))
-				.Description("The model of this particular car");
-			Field(c => c.Registration);
-			Field(c => c.Color);
-			Field(c => c.Year);
-		}
-	}
 
-	public class AutobarnSchema : Schema {
-		public AutobarnSchema(ICarDatabase db) => Query = new CarQuery(db);
+		private QueryArgument MakeNonNullStringArgument(string name, string description) {
+			return new QueryArgument<NonNullGraphType<StringGraphType>> {
+				Name = name, Description = description
+			};
+		}
+
+		private List<Car> GetAllCars(IResolveFieldContext<object> context) => db.Cars.ToList();
+
+		private Car GetCar(IResolveFieldContext<object> context) {
+			var registration = context.Arguments["registration"].GetPropertyValue<string>();
+			return db.FindCar(registration);
+		}
+
+		private List<Car> GetCarsByColor(IResolveFieldContext<object> context) {
+			var color = context.Arguments["color"].GetPropertyValue<string>();
+			var cars = db.Cars.Where(car => car.Color.Contains(color, StringComparison.InvariantCultureIgnoreCase));
+			return cars.ToList();
+		}
 	}
 }

@@ -1,6 +1,8 @@
 using Autobarn.Data;
 using Autobarn.Website.GraphQL;
+using Autobarn.Website.GraphQL.GraphTypes;
 using Autobarn.Website.GraphQL.Queries;
+using Autobarn.Website.GraphQL.Schemas;
 using GraphiQl;
 using GraphQL;
 using GraphQL.Server;
@@ -30,19 +32,14 @@ namespace Autobarn.Website {
 
 			#region GraphQL service registration
 
-			// services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
-			// services.AddSingleton<IDocumentWriter, DocumentWriter>();
-			// services.Configure<GraphQLSettings>(Configuration);
-			services.AddSingleton<CarQuery>();
-			services.AddSingleton<CarGraphType>();
+			//services.AddSingleton<CarQuery>();
+			//services.AddSingleton<CarGraphType>();
 			services.AddSingleton<AutobarnSchema>();
 			services.AddGraphQL()
 				.AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = true)
 				.AddSystemTextJson();
 
 			#endregion
-
-
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
