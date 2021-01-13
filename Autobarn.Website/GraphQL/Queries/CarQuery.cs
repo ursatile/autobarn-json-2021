@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Autobarn.Data;
 using Autobarn.Data.Entities;
 using GraphQL.Types;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace Autobarn.Website.GraphQL.Queries {
 	public class CarQuery : ObjectGraphType {
@@ -13,12 +14,30 @@ namespace Autobarn.Website.GraphQL.Queries {
 		}
 	}
 
+	public sealed class CarMakeGraphType : ObjectGraphType<Make> {
+		public CarMakeGraphType() {
+			Name = "make";
+			Field(c => c.Name).Description("The name of the manufacturer, e.g. Tesla, Volkswagen, Ford");
+			
+
+		}
+	}
+	public sealed class CarModelGraphType : ObjectGraphType<CarModel> {
+		public CarModelGraphType() {
+			Name = "model";
+			Field(m => m.Name, false).Description("The name of this model, e.g. Golf, Beetle, 5 Series, Model X");
+			Field(m => m.Make, false, typeof(CarMakeGraphType)).Description("The make of this model of car");
+
+		}
+	}
 	public sealed class CarGraphType : ObjectGraphType<Car> {
 		public CarGraphType() {
 			Name = "car";
-			Field(c => c.Registration, false);
-			Field(c => c.Color, false);
-			Field(c => c.Year, false);
+			Field(c => c.CarModel, nullable: false, type: typeof(CarModelGraphType))
+				.Description("The model of this particular car");
+			Field(c => c.Registration);
+			Field(c => c.Color);
+			Field(c => c.Year);
 		}
 	}
 
