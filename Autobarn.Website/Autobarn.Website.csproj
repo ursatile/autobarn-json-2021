@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="JsonData\dmc.json" />
+    <Content Remove="JsonData\mercedes-benz.json" />
+    <Content Remove="JsonData\tesla.json" />
+    <Content Remove="JsonData\volkswagen.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="JsonData\dmc.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="JsonData\tesla.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="JsonData\volkswagen.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="JsonData\mercedes-benz.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Autobarn.Data\Autobarn.Data.csproj" />
+  </ItemGroup>
+
+</Project>
