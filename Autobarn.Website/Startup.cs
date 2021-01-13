@@ -3,6 +3,7 @@ using Autobarn.Website.GraphQL;
 using Autobarn.Website.GraphQL.Queries;
 using GraphiQl;
 using GraphQL;
+using GraphQL.Server;
 using GraphQL.SystemTextJson;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
@@ -29,12 +30,16 @@ namespace Autobarn.Website {
 
 			#region GraphQL service registration
 
-			services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
-			services.AddSingleton<IDocumentWriter, DocumentWriter>();
-			services.Configure<GraphQLSettings>(Configuration);
+			// services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
+			// services.AddSingleton<IDocumentWriter, DocumentWriter>();
+			// services.Configure<GraphQLSettings>(Configuration);
 			services.AddSingleton<CarQuery>();
 			services.AddSingleton<CarGraphType>();
-			services.AddSingleton<ISchema, AutobarnSchema>();
+			services.AddSingleton<AutobarnSchema>();
+			services.AddGraphQL()
+				.AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = true)
+				.AddSystemTextJson();
+
 			#endregion
 
 
@@ -56,7 +61,8 @@ namespace Autobarn.Website {
 
 			app.UseAuthorization();
 
-			app.UseMiddleware<GraphQLMiddleware>();
+			// app.UseMiddleware<GraphQLMiddleware>();
+			app.UseGraphQL<AutobarnSchema>();
 			app.UseGraphiQl("/graphiql");
 
 			app.UseEndpoints(endpoints => {
