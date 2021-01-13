@@ -4,8 +4,6 @@ This is the sample code repository used in Dylan Beattie's workshop "[Introducti
 
 The examples and exercises in the workshop are based on **Autobarn**, a fictional app for selling second-hand cars. This repo contains the code for the starting point of the workshop - an ASP.NET web application and simple data store. During the workshop, we'll create a REST API that car dealers can use to list their stock on our website, we'll create a GraphQL endpoint that can provide data to a single-page web application (SPA) or a mobile app. We'll use a message queueing system to connect our web to several microservices -- a logging service that keeps a record of all new cars listed for sale, and a notification engine that will alert customers when a new car matching their requirements is listed. We'll use gRPC to connect our app to a pricing engine, and finally plug in a SignalR hub so that users who are online can get realtime notifications in their web browser each time a new car is listed for sale.
 
-> Please note that this workshop is an introduction, and the focus is on patterns and principles. The components and services you create during this workshop will have minimal security, monitoring and error recovery; there are links at the end of each section that you can use to find out more about securing, managing and monitoring these kinds of components in a production environment.
-
 ## Prerequisites: Getting up and running with ASP.NET Core
 
 The starting point for this workshop is a project called **Autobarn**. It's a very simple ASP.NET Core website that lists second-hand cars available for sale.
