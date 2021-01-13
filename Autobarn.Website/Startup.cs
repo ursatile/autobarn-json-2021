@@ -30,9 +30,7 @@ namespace Autobarn.Website {
 			services.AddSingleton<ICarDatabase>(db);
 
 			services.AddSingleton<AutobarnSchema>();
-			services.AddGraphQL(options => options.EnableMetrics = false)
-				.AddErrorInfoProvider(opt => opt.ExposeExceptionStackTrace = true)
-				.AddSystemTextJson();
+			services.AddGraphQL(options => options.EnableMetrics = false).AddSystemTextJson();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,7 +49,6 @@ namespace Autobarn.Website {
 
 			app.UseAuthorization();
 
-			// app.UseMiddleware<GraphQLMiddleware>();
 			app.UseGraphQL<AutobarnSchema>();
 			app.UseGraphiQl("/graphiql");
 
