@@ -1,19 +1,13 @@
-﻿using System.Collections.Generic;
-using Autobarn.Data;
+﻿using Autobarn.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Linq;
-using Autobarn.Data.Entities;
-using Autobarn.Website.Models;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Dynamic;
 
 namespace Autobarn.Website.Controllers.Api {
 
 	[Route("api/[controller]")]
 	[ApiController]
 	public class CarsController : ControllerBase {
-		
+
 		readonly ICarDatabase database;
 
 		public CarsController(ICarDatabase database) {
