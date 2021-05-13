@@ -7,8 +7,7 @@ namespace Autobarn.Website.Controllers.Api {
 	[Route("api/[controller]")]
 	[ApiController]
 	public class CarsController : ControllerBase {
-
-		readonly ICarDatabase database;
+		private readonly ICarDatabase database;
 
 		public CarsController(ICarDatabase database) {
 			this.database = database;
