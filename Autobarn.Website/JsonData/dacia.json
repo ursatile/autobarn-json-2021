@@ -1,0 +1,43 @@
+{
+  "name": "Dacia",
+  "models": [
+    {
+      "code": "dacia1310",
+      "name": "1310",
+      "cars": [
+        {
+          "registration": "HALAS4",
+          "year": 1973,
+          "color": "Blue"
+        },
+        {
+          "registration": "LAJ034",
+          "year": 1984,
+          "color": "Red"
+        },
+        {
+          "registration": "B90PIF",
+          "year": 1979,
+          "color": "Green"
+        }
+
+      ]
+    },
+    {
+      "code": "duster",
+      "name": "Duster",
+      "cars": [
+        {
+          "registration": "TM10XHC",
+          "year": 1995,
+          "color": "Black"
+        },
+        {
+          "registration": "TM44BBX",
+          "year": 2002,
+          "color": "Silver"
+        }
+      ]
+    }
+  ]
+}

@@ -7,5 +7,6 @@ namespace Autobarn.Data {
 		IList<Make> Makes { get; }
 		IList<CarModel> Models { get; }
 		Car FindCar(string registration);
+		void AddCar(Car car);
 	}
 }
